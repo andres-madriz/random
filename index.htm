@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andres & Co. | Elite Group Escape Catalog</title>
+    <title>Drew’s Relevé & Refactor Retreats | Expanded Budget Portfolios</title>
     <style>
         :root {
             --bg-cream: #fbfaf7;
@@ -14,6 +14,9 @@
             --card-white: #ffffff;
             --border-soft: #e8e5dd;
             --tab-inactive: #f0ede6;
+            --accent-blue: #1a73e8;
+            --danger-red: #c53929;
+            --success-green: #137333;
         }
 
         body {
@@ -33,7 +36,7 @@
 
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             background: var(--luxury-green);
             color: white;
             border-radius: 16px;
@@ -43,18 +46,30 @@
 
         header h1 {
             font-family: "Playfair Display", "Didot", Georgia, serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin: 0 0 10px 0;
             letter-spacing: 2px;
             font-weight: 300;
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent-gold);
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 3px;
+        }
+
+        .budget-banner {
+            background-color: #e6f4ea;
+            border: 1px solid #137333;
+            color: #137333;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
         }
 
         /* Destination Tabs Navigation */
@@ -86,6 +101,18 @@
             box-shadow: 0 4px 12px rgba(17,46,32,0.15);
         }
 
+        .dest-tab.budget-btn {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px dashed #ffeeba;
+        }
+
+        .dest-tab.budget-btn.active {
+            background: var(--accent-gold);
+            color: white;
+            border: 1px solid var(--accent-gold);
+        }
+
         /* Catalog Content Styling */
         .catalog-section {
             display: none;
@@ -96,46 +123,52 @@
             animation: fadeIn 0.5s ease;
         }
 
+        @media(max-width: 768px) {
+            .dest-tabs { padding-bottom: 10px; }
+            header h1 { font-size: 2rem; }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-banner {
-            height: 400px;
+            height: 350px;
             background-size: cover;
             background-position: center;
             border-radius: 14px;
             margin-bottom: 40px;
             position: relative;
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.6);
         }
 
         .hero-tagline {
             position: absolute;
             bottom: 30px;
             left: 30px;
+            right: 30px;
             color: white;
-            max-width: 600px;
+            max-width: 700px;
         }
 
         .hero-tagline h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin: 0 0 10px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .hero-tagline p {
             font-style: italic;
             margin: 0;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         h3.section-header {
             color: var(--luxury-green);
             border-left: 4px solid var(--accent-gold);
             padding-left: 15px;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-top: 40px;
             margin-bottom: 20px;
             text-transform: uppercase;
@@ -164,7 +197,7 @@
         .luxury-card h4 {
             margin-top: 0;
             color: var(--luxury-green);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             border-bottom: 1px solid var(--border-soft);
             padding-bottom: 10px;
             margin-bottom: 15px;
@@ -174,14 +207,14 @@
             display: inline-block;
             padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 8px;
         }
 
-        .badge-cheapest { background: #e6f4ea; color: #137333; }
-        .badge-best { background: #e8f0fe; color: #1a73e8; }
+        .badge-backpack { background: #e6f4ea; color: #137333; }
+        .badge-checked { background: #e8f0fe; color: #1a73e8; }
 
         /* Tables formatting */
         table {
@@ -195,9 +228,10 @@
         }
 
         th, td {
-            padding: 15px;
+            padding: 14px;
             text-align: left;
             border-bottom: 1px solid var(--border-soft);
+            font-size: 0.9rem;
         }
 
         th {
@@ -205,630 +239,478 @@
             color: white;
             font-weight: 500;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
         }
 
         tr:last-child td { border-bottom: none; }
 
-        .tag-gf { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
         .tag-v { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        .tag-gf { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        
+        .text-right { text-align: right; }
+        .font-bold { font-weight: bold; }
+        .text-green { color: #137333; }
+        .text-muted { color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>ANDRES & CO.</h1>
-        <p>Bespoke Group Architecture • 5-Day Retreat Portfolios</p>
+        <h1>DREW’S RELEVÉ & REFACTOR RETREATS</h1>
+        <p>Budget Blueprint Edition • Maximum €550 Cap per Trip</p>
     </header>
+
+    <div class="budget-banner">
+        ⚠️ HARD OPTIMIZATION ACTIVE: All portfolios have been cross-checked from Madrid (MAD) to guarantee max fun, zero legacy code friction, and strict sub-€550 limits.
+    </div>
 
     <!-- Destination Selector Tabs -->
     <div class="dest-tabs">
-        <button class="dest-tab active" onclick="switchDest('portugal')">Northern Portugal</button>
-        <button class="dest-tab" onclick="switchDest('tenerife')">Tenerife North</button>
-        <button class="dest-tab" onclick="switchDest('scotland')">Scotland</button>
-        <button class="dest-tab" onclick="switchDest('ireland')">Ireland</button>
-        <button class="dest-tab" onclick="switchDest('wales')">Wales</button>
-        <button class="dest-tab" onclick="switchDest('germany')">Black Forest</button>
+        <button class="dest-tab active" onclick="switchDest(this, 'porto')">Porto, Portugal</button>
+        <button class="dest-tab" onclick="switchDest(this, 'tenerife')">Tenerife North</button>
+        <button class="dest-tab" onclick="switchDest(this, 'edinburgh')">Edinburgh, Scotland</button>
+        <button class="dest-tab" onclick="switchDest(this, 'wales')">Bristol & Wales Gateway</button>
+        <button class="dest-tab" onclick="switchDest(this, 'ireland')">Ireland (Celtic Loop)</button>
+        <button class="dest-tab" onclick="switchDest(this, 'blackforest')">The Black Forest</button>
+        <button class="dest-tab budget-btn" onclick="switchDest(this, 'master-budget')">📊 Master €550 Budget Matrix</button>
     </div>
 
     <!-- ============================================
-         PORTUGAL CATALOG PORTFOLIO
+         PORTO PORTFOLIO
          ============================================ -->
-    <div id="portugal" class="catalog-section active">
+    <div id="porto" class="catalog-section active">
         <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=80');">
             <div class="hero-tagline">
-                <h2>Northern Portugal: Granite, River & Surf</h2>
-                <p>A narrative of ancient terraced riverways collapsing into cold Atlantic surf breaks. Porto offers a structural playground of azure tiles and steep stone staircases, shifting effortlessly into the raw wilderness cascades of Peneda-Gerês.</p>
+                <h2>Porto: High-Friction Coastal Refactoring</h2>
+                <p>Architectural tile-hunting, affordable coastal transit lanes, and raw Atlantic surf breaks crashing onto steep granite city layouts.</p>
             </div>
         </div>
 
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ OPO)</h3>
         <div class="grid-2">
             <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ OPO)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>Ryanair Direct:</strong> €65 round-trip. Ideal mid-day flight window. Strictly includes an under-seat personal item.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>Iberia Classic:</strong> €135 round-trip. Optimal morning departure block. Fully includes a 10kg overhead cabin bag and structured group seating protection.</p>
+                <h4>✈️ Ryanair Route Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €35 – €60 round-trip. Fits entirely under-seat (40x30x20cm). Perfect micro-packing envelope.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €75 – €110 round-trip. Includes under-seat personal item + 10kg rolling cabin bag or checked baggage safety option.</p>
             </div>
             <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. Moov Hotel Porto Centro (Batalha):</strong> €95/night. Minimalist structural design. *Why it fits:* Extremely group-friendly budget base inside the historical center footprint.</p>
-                <p><strong>2. Outsite Porto (Cedofeita):</strong> €140/night. Boutique co-living property. *Why it fits:* Exceptional common lounges perfect for tech-forward friends planning evening group tracks.</p>
-                <p><strong>3. Selina Navis Porto (Ribeira/Baixa):</strong> €110/night. Industrial chic aesthetic. *Why it fits:* Highly rated social architecture with large multi-room floor plan variations.</p>
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. Onefam Ribeira:</strong> €16 – €22/night. High social metrics. Includes free family-style dinners that decimate food spending.</p>
+                <p><strong>2. Nice Way Porto Hostel:</strong> €18 – €24/night. Centrally mapped right near the historic transit lines. Highly responsive common tech lounges.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €48 – €72 total per person.</p>
             </div>
         </div>
 
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>⚓ Neighborhood A: Ribeira & Gaia Waterfront</h4>
-                <p><strong>The Vibe:</strong> A cinematic, high-contrast landscape of stacked multi-colored medieval facades mirroring across the golden hour currents of the Douro River.</p>
-                <p><strong>Landmarks:</strong> Dom Luís I Iron Bridge Footway & Capela das Almas.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* DaTerra Ribeira <span class="tag-v">Veg</span> (Incredible all-you-can-eat plant-based buffet variations).<br>
-                    • *Sit-Down:* Com Cuore <span class="tag-gf">100% GF</span> (Safehaven pastry paradise; completely gluten-free traditional Pastel de Nata mapping).</p>
-                <p><strong>Hidden Gem:</strong> *Armazém* — A cavernous, hidden architectural warehouse serving as an industrial vintage design collective and quiet terrace wine sanctuary.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎨 Neighborhood B: Cedofeita & Clérigos District</h4>
-                <p><strong>The Vibe:</strong> The independent creative pulse of the city, lined with low-key art galleries, concept spaces, and leafy residential plazas.</p>
-                <p><strong>Landmarks:</strong> Clérigos Baroque Bell Tower & Livraria Lello.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Kind Kitchen <span class="tag-v">Veg</span> <span class="tag-gf">GF Options</span> (High-energy vegan street food kitchen handling stellar clean tacos and bowls).<br>
-                    • *Sit-Down:* Época Café (Design-forward, organic plant-focused seasonal lunch menu emphasizing raw ingredients).</p>
-                <p><strong>Hidden Gem:</strong> *Coração Alecrim* — An eco-conscious boutique tracking custom hand-crafted ceramics and local sustainable apparel independent lines.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
         <table>
             <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Morning</td><td>Baixa Center</td><td>Land OPO, Metro link to core, historical alignment walk.</td><td>Buy 3-day Andante tour pass at airport terminal.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>Cedofeita</td><td>Priority entry track inside Livraria Lello galleries.</td><td>Pre-book specific slot online 2 weeks early.</td></tr>
-                <tr><td>1</td><td>Evening</td><td>Ribeira</td><td>Sunset group gathering at Jardim do Morro view heights.</td><td>Grab open-air seats 45 mins before horizon drop.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Peneda-Gerês</td><td>Out-of-city escape: Waterfall trekking & canyoning loops.</td><td>Secure group vehicle cluster pick-up by 08:00.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Matosinhos</td><td>Ocean coast transit run: Surf session & beach track exploration.</td><td>Metro Line A runs directly to the coastal sands.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Gaia Vaults</td><td>Guided walk through historic operational aging cellars.</td><td>Book Graham's Vaults tour entry ahead.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>Galerias Paris</td><td>Indie bar crawl and alternative music block scouting.</td><td>No reservations needed; blocks active post-23:00.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>Foz do Douro</td><td>Slow travel bicycle track where river finishes into Atlantic.</td><td>Rent vintage cruisers directly at the riverside docks.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Serralves</td><td>Contemporary Art Museum walk & canopy tree-top walkway.</td><td>Serralves park ticket includes architecture access.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>Baixa Center</td><td>Final group dinner feast celebration block.</td><td>Reserve sit-down dining slots for groups of 5+.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>Ribeira Alleys</td><td>Slow boutique cafe looping and pastry gathering before flight.</td><td>Pack bags early; use hotel storage lockers freely.</td></tr>
+                <tr><td>1</td><td>Morning</td><td>Baixa Center: Architectural tile-hunting walks.</td><td>€0 - Walking is the core layout.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>Livraria Lello: Inspecting structural wood galleries.</td><td>€8 entry (Book 2 weeks out).</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Jardim do Morro: Golden hour acoustic sunset gathering.</td><td>€0 - Grab grocery store snacks.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Matosinhos Coast: Surf sesh and wide boardwalk runs.</td><td>€2.15 Metro Line A direct link.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Ribeira Alleys: Stepping over historic steep staircases.</td><td>€0 - High-intensity physical loop.</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>DaTerra Ribeira <span class="tag-v">Veg</span>: Post-walk plant-based buffet.</td><td>€12 - All-you-can-eat control.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Galerias Paris: High-energy pedestrian street bars.</td><td>€0 cover - Socializing is open-air.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
         <table>
             <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
             </thead>
             <tbody>
-                <tr><td>Peneda-Gerês Wilderness Canyon Run</td><td>Palácio da Bolsa Interior Gilded Chambers Tour</td><td>*Bottleneck:* Gaia-to-Porto bridge traffic spikes heavily at 18:00. *Strategy:* Ditch vehicles; utilize Metro Line D line links.</td></tr>
-                <tr><td>Matosinhos Coastline Surf Session</td><td>Serralves Contemporary Indoor Art Pavilion Track</td><td>*Bottleneck:* Lello entry queues cascade even with targeted ticket passes. *Strategy:* Secure the absolute first 09:00 slot.</td></tr>
-                <tr><td>Jardim do Morro Sunset Gathering</td><td>Casa da Música Concert Hall Lobby Architecture Tour</td><td>*Bottleneck:* Coastal train links to nearby beach tracks thin down post-20:00. *Strategy:* Coordinate return shared Bolt cars.</td></tr>
+                <tr><td>Matosinhos Coast Surf Track</td><td>São Bento Station Tile Hub & Covered Markets</td><td>€0 - Free architectural asset tracking.</td></tr>
+                <tr><td>Sunset Viewpoints Cover</td><td>Com Cuore Pastry Safehaven <span class="tag-gf">100% GF</span></td><td>€4 - Budget coffee and celiac-safe treats.</td></tr>
             </tbody>
         </table>
-
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *The Couvert Rule:* The small olives, cheese, and bread brought to the table instantly are not free; if you consume them, they are charged per item. Politely pass them back if not desired.</p>
-                <p>2. *Tipping Strategy:* Tipping is not standard culture; round up the bill cleanly by 5-10% for exceptional sit-down group host service.</p>
-                <p>3. *Tone Volatility:* Keep voice tones measured in historical residential stone lanes; local neighborhoods appreciate low acoustic footprints at night.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Download the *Anda App* or buy the physical *Andante Card* right at the airport terminal entry gates for seamless tapping parameters.</p>
-                <p><strong>1. Vibram-Soled Footwear:</strong> Porto’s historic wet cobblestones feature an aggressive incline slope; standard flat sneakers will lose friction instantly.</p>
-                <p><strong>2. Polarized Sunglasses:</strong> The blinding white light reflecting off granite historical architecture and river waves requires technical optic filters.</p>
-                <p><strong>3. Lightweight Windshell:</strong> Atlantic ocean winds cause sudden microclimate temperature drops along river corridors by sunset.</p>
-            </div>
-        </div>
     </div>
 
     <!-- ============================================
-         TENERIFE CATALOG PORTFOLIO
+         TENERIFE NORTH PORTFOLIO
          ============================================ -->
     <div id="tenerife" class="catalog-section">
         <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
             <div class="hero-tagline">
-                <h2>Tenerife North: The Volcanic Laurel Sanctum</h2>
-                <p>A dramatic landscape departure completely removed from southern package tourism. This territory spans prime prehistoric cloud forests draped in mist, black basalt volcanic rock pools, and stargazing tracks far above the clouds.</p>
+                <h2>Tenerife North: The Prehistoric Volcanic Loop</h2>
+                <p>Mist-shrouded laurel cloud forests, volcanic rock pool swims, and eating at local agricultural pop-up taverns far below the budget ceiling.</p>
             </div>
         </div>
 
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ TFN)</h3>
         <div class="grid-2">
             <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ TFN)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>Vueling Airlines:</strong> €90 round-trip. Directly operational into Tenerife North (TFN). Under-seat backpack parameters only.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>Iberia Express Classic:</strong> €170 round-trip. Prime flight schedules. Includes a full 10kg cabin bag, advanced group seating assignments, and flexible modifications.</p>
+                <h4>✈️ Ryanair & Iberia Express Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €60 – €80 round-trip. Directly into Tenerife North (TFN). Avoids Southern airport transit bills.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €110 – €140 round-trip. Essential if packing heavy technical trail boots or tracking extra layers.</p>
             </div>
             <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. Aguere Nest Hostel (La Laguna):</strong> €75/night. Classic historical townhouse layout. *Why it fits:* Unmatched affordability for small groups looking for architectural roots.</p>
-                <p><strong>2. La Laguna Gran Hotel:</strong> €135/night. Premium colonial manor conversion. *Why it fits:* Features an interior courtyard oasis and excellent restoration facilities within the historic center.</p>
-                <p><strong>3. Hotel MC San Agustín:</strong> €160/night. High-ceilinged design sanctuary. *Why it fits:* Luxury boutique finish offering spacious suite alternatives for group configurations.</p>
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. Aguere Nest Hostel (La Laguna):</strong> €22 – €28/night. Located cleanly inside a colorful historic university footprint.</p>
+                <p><strong>2. Puerto Surf Hostel:</strong> €25 – €32/night. Direct coastal alignment for fast morning oceanic runs.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €66 – €96 total per person.</p>
             </div>
         </div>
 
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>🏡 Neighborhood A: San Cristóbal de La Laguna</h4>
-                <p><strong>The Vibe:</strong> A vibrant, pastel-tinted colonial university hub defined by lively pedestrian streets and independent student-fueled tap rooms.</p>
-                <p><strong>Landmarks:</strong> Plaza del Adelantado & Cathedral of La Laguna.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* La Crepería Les Îles <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Specializing in massive savory buckwheat gluten-free galettes with extensive plant variations).<br>
-                    • *Sit-Down:* Arlecchino La Laguna <span class="tag-v">Veg Options</span> (Authentic long-fermentation Neapolitan base providing highly labeled alternative food mappings).</p>
-                <p><strong>Hidden Gem:</strong> *Discos Lizard* — A specialized local vinyl record store and counter-culture hub hiding down a quiet pedestrian lane.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🌲 Neighborhood B: Anaga Biosphere Edge & Bajamar</h4>
-                <p><strong>The Vibe:</strong> Prehistoric volcanic ridges drop vertically into dark ocean expanses, wrapped in a perpetual mantle of high-altitude laurel forest fog.</p>
-                <p><strong>Landmarks:</strong> Camino de los Sentidos Trailhead & Bajamar Natural Ocean Basins.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Casa Odón Guachinche (Rustic traditional hillside tavern serving local Canarian wrinkled potatoes with celiac-safe mojo sauces).<br>
-                    • *Sit-Down:* Restaurante El Frontón (Perched cliffside spot matching fresh regional plates with vegetable clear preparations).</p>
-                <p><strong>Hidden Gem:</strong> *Almáciga Surf Outlook* — A secluded black sand surf cove lookout entirely isolated from mainstream island crowds.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
         <table>
             <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Morning</td><td>La Laguna</td><td>Land TFN, pick up group rental cars, settle into historic core.</td><td>Book Cicar or PlusCar rentals months out for zero surprise fees.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>La Laguna</td><td>Walking structural discovery tour of pastel colonial palaces.</td><td>The old town is fully pedestrianized; park outside the center ring.</td></tr>
-                <tr><td>1</td><td>Evening</td><td>La Laguna</td><td>Group local microbrew and cider tasting tracks.</td><td>Student areas peak in energy around Thursday/Friday nights.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Anaga Forest</td><td>Trekking deep inside the enchanted laurel cloud reserve.</td><td>Some restricted trails require digital access permits 1 month out.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Garachico</td><td>Swimming inside natural pools formed by cooled 1706 lava tracks.</td><td>Check sea swell status; basins close dynamically if waves spike.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Icod de Vinos</td><td>Viewing the ancient Millennium Drago Tree and botanical parklands.</td><td>Grab a local cheese tasting flight directly across the courtyard.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>Teide Plateau</td><td>High-altitude stargazing run above the cloud layer line.</td><td>Pack heavy insulation; temperatures hit single digits quickly.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>Santa Cruz</td><td>Modern architectural discovery: Auditorio de Tenerife waterfront.</td><td>Park directly in the expansive maritime lot adjacent to the venue.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Las Teresitas</td><td>Relaxation track along the golden palm-fringed coastal bay.</td><td>The far end of the beach offers the best food kiosks.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>La Laguna</td><td>Final night vegetarian banquet celebration layout.</td><td>Advance bookings mandatory for large tables on weekends.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>La Laguna</td><td>Final local market loop for fruit and mojo jar acquisitions.</td><td>Ensure liquid jars are packed inside checked bags before TFN drops.</td></tr>
+                <tr><td>1</td><td>Morning</td><td>La Laguna Historic Core: Pastel colonial exploration.</td><td>€0 - Clean pedestrian zones.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>Anaga Rural Park: Deep trail loops inside laurel fog.</td><td>€0 - Free nature reserve tracking.</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Guachinche Casa Odón: Wrinkled potatoes & mojo sauce.</td><td>€10 - Ultra-cheap local farm food.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Garachico Basalt Pools: Swims in hardened 1706 lava.</td><td>€0 - Open-air natural public pools.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Benijo Black Sand Beach: Dramatic volcanic cliff photo runs.</td><td>Shared car rental fuel splitting (~€15).</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>La Crepería Les Îles <span class="tag-gf">GF Options</span>: Hearty galette fuel.</td><td>€9 - Massive filling celiac options.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Teide High Plateau: Midnight stargazing above the clouds.</td><td>€0 - Ultimate premium cosmic views.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
         <table>
             <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
             </thead>
             <tbody>
-                <tr><td>Anaga Mountain Ridge Hiking Loop</td><td>Museum of Science and the Cosmos (Interactive Tech Labs)</td><td>*Bottleneck:* The TF-5 highway commuter arterial locks completely at 08:00. *Strategy:* Move schedules post-09:30 or pre-07:15.</td></tr>
-                <tr><td>Garachico Ocean Basin Swims</td><td>Exconvento de Santo Domingo Historical Gallery Vaults</td><td>*Bottleneck:* Teide cable car rides sell out weeks early or close for high wind vectors. *Strategy:* Always track real-time alerts via their app.</td></tr>
-                <tr><td>Playa de Las Teresitas Relaxation</td><td>TEA Tenerife Espacio de las Artes Contemporary Complex</td><td>*Bottleneck:* Anaga mountain road networks are tight single-lane switchbacks. *Strategy:* Honk gently on blind curves.</td></tr>
+                <tr><td>Anaga Cloud Forest Ridge Trek</td><td>Museum of Science and the Cosmos (Interactive Tech Labs)</td><td>€5 Entry - Heavy science layout.</td></tr>
+                <tr><td>Garachico Volcanic Ocean Pools</td><td>TEA Tenerife Espacio de las Artes Galleries</td><td>€0 - Free contemporary architectural space.</td></tr>
             </tbody>
         </table>
-
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *Guachinche Code:* Authentic guachinches are seasonal agricultural pop-up properties; respect the house rules and only order the local house wines from their family harvest.</p>
-                <p>2. *Environmental Care:* Taking volcanic sand or basalt stones from national parks is heavily fined; leave everything exactly in place.</p>
-                <p>3. *Language Etiquette:* Use standard Spanish politely; local accents use a softer rhythm, so keep conversational tones friendly and calm.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Secure dedicated group vehicles at TFN; relying solely on regular bus links will restrict access to isolated trailheads.</p>
-                <p><strong>1. High-SPF Reef-Safe Sunscreen:</strong> The tropical high-altitude UV radiation levels on the island pierce heavy cloud cover silently.</p>
-                <p><strong>2. Headlamp / Technical Torch:</strong> Essential for safety if mountain hikes delay past sudden island forest twilight windows.</p>
-                <p><strong>3. Insulated Packable Puffer Jacket:</strong> Essential for transitioning from 24°C coastal beaches to 4°C mountain heights within an hour drive.</p>
-            </div>
-        </div>
     </div>
 
     <!-- ============================================
-         SCOTLAND CATALOG PORTFOLIO
+         EDINBURGH PORTFOLIO
          ============================================ -->
-    <div id="scotland" class="catalog-section">
+    <div id="edinburgh" class="catalog-section">
         <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80');">
             <div class="hero-tagline">
-                <h2>Scotland: The Gothic Shadowlands</h2>
-                <p>A narrative framed in volcanic crags, dark academia stone labyrinths, and sweeping mountain gaps. Edinburgh serves as a multi-layered historic citadel that transitions into the rugged wilderness grandeur of Glencoe.</p>
+                <h2>Edinburgh: Gothic Dark Academia Run</h2>
+                <p>Volcanic crags, free world-class museums, and moody stone alleys pulsing with acoustic pub sessions.</p>
             </div>
         </div>
 
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ EDI)</h3>
         <div class="grid-2">
             <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ EDI)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>EasyJet Standard:</strong> €125 round-trip. Direct non-stop routing. Limited to one strict under-seat cabin footprint package.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>Ryanair Regular Fare:</strong> €215 round-trip. Better afternoon return window alignment. Includes priority boarding priority access and a full 10kg overhead cabin bag allocation.</p>
+                <h4>✈️ EasyJet & Ryanair Route Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €70 – €110 round-trip. Strict single personal item control. Wear your heavy outerwear on the plane.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €130 – €180 round-trip. Recommended if checking multi-layered mountain wear or tech tripods.</p>
             </div>
             <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. CoDE Pod Hostels - THE Court (Old Town):</strong> €85/night. High-concept capsule design inside a historical court framework. *Why it fits:* Supreme group privacy in premium pods.</p>
-                <p><strong>2. Kick Ass Grassmarket (Old Town):</strong> €90/night. Modern, energetic design property. *Why it fits:* Incredible rooftop castle view terraces perfect for evening group orientation strategies.</p>
-                <p><strong>3. Eden Locke (George Street):</strong> €175/night. Pastel industrial boutique apart-hotel. *Why it fits:* Beautiful kitchenettes and design infrastructure for groups craving a luxury stay baseline.</p>
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. Kick Ass Grassmarket:</strong> €18 – €28/night. Features an epic direct castle lookout terrace roof footprint.</p>
+                <p><strong>2. High Street Hostel:</strong> €16 – €26/night. Off the Royal Mile. Reclaimed historical stone building layout.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €48 – €84 total per person.</p>
             </div>
         </div>
 
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>🏰 Neighborhood A: The Old Town & Royal Mile</h4>
-                <p><strong>The Vibe:</strong> A towering, dark academia stone mountain of multi-layered medieval tenements and narrow subterranean alleys.</p>
-                <p><strong>Landmarks:</strong> Edinburgh Castle Citadel & Real Mary King’s Close.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Hendersons <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Legendary plant-based venue tracking spectacular celiac-safe vegetarian haggis variations).<br>
-                    • *Sit-Down:* David Bann <span class="tag-v">Veg</span> (Sophisticated, warm architectural dining space with clear allergens and inventive global menus).</p>
-                <p><strong>Hidden Gem:</strong> *W. Armstrong & Son* — One of the UK’s oldest vintage emporiums, packed with heavy tweed coats and unique aesthetic layers.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🌿 Neighborhood B: Stockbridge & Dean Village</h4>
-                <p><strong>The Vibe:</strong> A tranquil, village-like sanctuary of elegant Georgian stone facades running along a mossy woodland river corridor.</p>
-                <p><strong>Landmarks:</strong> Dean Village Water of Leith Footpath & St Bernard’s Well.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* The Scran and Scallie (Gastropub setting with high-grade, dedicated allergen-vetted gluten-free menus).<br>
-                    • *Sit-Down:* The Gardener’s Cottage (Intimate, hyper-seasonal farm-to-table dining experience inside a restored historical park cottage).</p>
-                <p><strong>Hidden Gem:</strong> *Golden Hare Books* — A gorgeously curated independent bookstore featuring custom wood-burning hearth fires and unique indie publications.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
         <table>
             <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Morning</td><td>Old Town</td><td>Land EDI, take airport tram link directly into Princes Street.</td><td>Buy tram tickets at terminal platforms before boarding.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>Old Town</td><td>Scale Edinburgh Castle volcanic fortifications and battlements.</td><td>Advance online tickets are completely mandatory.</td></tr>
-                <tr><td>1</td><td>Evening</td><td>Grassmarket</td><td>Subterranean ghost vault walking exploration under old arches.</td><td>Book late evening slots for the best atmosphere.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Highlands Drive</td><td>Out-of-city escape: Glencoe Valley trail runs & mountain gaps.</td><td>Pick up group rental vehicles at Waverley Station hub by 07:30.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Stockbridge</td><td>Walking trek through idyllic historic paths of Dean Village.</td><td>Early morning light offers perfect conditions for group media capture.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Old Town</td><td>Interactive discovery inside Camera Obscura rooftop illusion labs.</td><td>Expect high crowds; book early afternoon windows.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>New Town</td><td>Cocktail design tracking across low-key subterranean basements.</td><td>Many speakeasies require simple online group waitlist taps.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>Holyrood</td><td>Sunrise group hiking sprint up the volcanic rim of Arthur’s Seat.</td><td>Wear stable hiking treads; the rocky peak sections can get slick.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Leith Docks</td><td>Waterfront creative district walk & contemporary culture galleries.</td><td>Take the newly extended tram line directly down to the harbor.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>Old Town</td><td>Traditional live acoustic folk session loop at historic taverns.</td><td>No entry fees; arrive by 20:00 to catch bench space.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>Old Town</td><td>Slow specialty coffee crawling down historic Victoria Street curves.</td><td>Pack light; check out early and keep transit bags centralized.</td></tr>
+                <tr><td>1</td><td>Morning</td><td>Royal Mile: Gothic architecture profiling walk.</td><td>€0 - Pure ambient exploration.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>National Museum of Scotland: Massive Grand Gallery.</td><td>€0 - Completely free entry tracking.</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Subterranean Ghost Walks: Exploring dark historic arches.</td><td>€12 budget operator voucher booking.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Arthur’s Seat: High-intensity extinct volcano ridge sprint.</td><td>€0 - Exceptional physical training layout.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Dean Village: Water of Leith calm woodland river walks.</td><td>€0 - Hidden village stone path tracking.</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>Hendersons <span class="tag-v">Veg</span> <span class="tag-gf">GF</span>: Classic veggie haggis plates.</td><td>€14 - Filling traditional lunch controls.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Royal Mile Pubs: Free live acoustic folk jam sessions.</td><td>Cost of 1 local cider (~€5). Cover is free.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
         <table>
             <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
             </thead>
             <tbody>
-                <tr><td>Arthur’s Seat Volcanic Ridge Ascent</td><td>National Museum of Scotland (Grand Gallery Vaults)</td><td>*Bottleneck:* Waverley station rental car queues spike significantly at 09:00. *Strategy:* Appoint one main driver to clear paperwork early.</td></tr>
-                <tr><td>Glencoe Wilderness Highway Run</td><td>The Scotch Whisky Experience Vault Interactive Tour</td><td>*Bottleneck:* Old town cobblestone pavements map narrow bottlenecks for large groups. *Strategy:* Walk in staggered pairs to clear lanes smoothly.</td></tr>
-                <tr><td>Water of Leith Woodland Walk</td><td>Scottish National Portrait Gallery (Gothic Great Hall)</td><td>*Bottleneck:* Highland day tours can take over 3 hours of highway return if accidents occur on the A82 corridor. *Strategy:* Factor safe return padding.</td></tr>
+                <tr><td>Arthur’s Seat Mountain Ridge Walk</td><td>Scottish National Portrait Gallery (Gothic Great Hall)</td><td>€0 - Free indoor dynamic heating.</td></tr>
+                <tr><td>Dean Village Riverside Footpath</td><td>Camera Obscura Rooftop Optical Illusion Labs</td><td>€18 entry - Splurge allocation.</td></tr>
             </tbody>
         </table>
-
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *Pub Ordering Etiquette:* Do not wait for table service in traditional pubs; nominate one person to order directly at the bar counter lines.</p>
-                <p>2. *Right to Roam Access:* Scotland operates under advanced outdoor access laws; you can walk freely on open wild land, but leave zero trace and respect local farm gates.</p>
-                <p>3. *Pedestrian Etiquette:* Stand to the left sides of busy historic stair links to allow fast-moving local commuters to pass efficiently.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Rely on the *Lothian Buses M-Tickets App* for simple, direct smartphone tapping parameters across all city routes.</p>
-                <p><strong>1. Hard-Shell Technical Waterproofing:</strong> Regular fashion umbrellas will flip and break instantly in aggressive Edinburgh ridge wind patterns.</p>
-                <p><strong>2. Blister Defense Tape:</strong> Walking over miles of unyielding historical medieval stone pavements will fatigue feet rapidly.</p>
-                <p><strong>3. Packable Canvas Tote Bag:</strong> Single-use plastic bags are legally charged across retail platforms; keep your own toggled for convenience.</p>
-            </div>
-        </div>
     </div>
 
     <!-- ============================================
-         IRELAND CATALOG PORTFOLIO
-         ============================================ -->
-    <div id="ireland" class="catalog-section">
-        <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=1200&q=80');">
-            <div class="hero-tagline">
-                <h2>Ireland: The Emerald Horizon</h2>
-                <p>A narrative built on warm brick hearth fires, historic pub conversations, and stark coastal dropping points. Dublin’s cultural districts provide an approachable historical baseline before heading out to the monumental Atlantic edge.</p>
-            </div>
-        </div>
-
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ DUB)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>Ryanair Basic:</strong> €110 round-trip. Strict direct link parameters. Only 1 under-seat personal bag allowed without penalty.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>Aer Lingus Economy Smart:</strong> €195 round-trip. Great morning slot timing. Fully includes a 10kg overhead cabin bag, a 20kg checked baggage safety line, and complimentary seat map locking.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. Jacobs Inn Hostel (Custom House):</strong> €80/night. High-grade modern privacy pods. *Why it fits:* Clean layout with excellent custom pod separation for group dynamics.</p>
-                <p><strong>2. Generator Dublin (Smithfield):</strong> €95/night. Reclaimed industrial style structure. *Why it fits:* Located right next to top vegetarian dining hubs and legendary traditional session spots.</p>
-                <p><strong>3. Drury Court Hotel (Creative Quarter):</strong> €165/night. Classic warm townhouse feel. *Why it fits:* Unmatched central location close to premium boutique pedestrian alleys.</p>
-            </div>
-        </div>
-
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>🎻 Neighborhood A: Smithfield & Stoneybatter</h4>
-                <p><strong>The Vibe:</strong> An authentic, gritty-meets-artistic residential enclave defined by red-brick warehouses, indie cafes, and historic neighborhood bars.</p>
-                <p><strong>Landmarks:</strong> Smithfield Square Cobble Tower & The Cobblestone Pub (Traditional Music Hub).</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Token Smithfield (Retro arcade setup featuring incredible, heavily specified vegan and gluten-free fast-food menus).<br>
-                    • *Sit-Down:* Glas Restaurant <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Award-winning upscale vegetarian fine dining space located just a quick transit link away into the core).</p>
-                <p><strong>Hidden Gem:</strong> *The Light House Cinema* — An underground architectural design cinema displaying vibrant custom colors and independent gallery spaces.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🛍️ Neighborhood B: The Creative Quarter & Grafton Alleys</h4>
-                <p><strong>The Vibe:</strong> A refined, energetic cluster of pedestrian brick passageways filled with artisanal design shops and independent coffee labs.</p>
-                <p><strong>Landmarks:</strong> George’s Street Arcade & Trinity College Long Room exterior.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Cornucopia Wholefoods <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Legendary multi-floor institution serving up massive gluten-free bakes and hearty home-style soups).<br>
-                    • *Sit-Down:* Blazing Salads (Pioneering organic plant-based deli counter focused on clean wholefood dynamics).</p>
-                <p><strong>Hidden Gem:</strong> *The Designist* — A unique concept lifestyle shop tracking custom home goods created exclusively by local independent artists.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
-        <table>
-            <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>Morning</td><td>Center Core</td><td>Land DUB, catch the express airport coach line straight into city center.</td><td>Pre-book your return Aircoach voucher online for group savings.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>Creative Qtr</td><td>Explore George’s Street Arcade brick galleries and design alleys.</td><td>The arcade marketplace operates at peak activity before 17:00.</td></tr>
-                <tr><td>1</td><td>Evening</td><td>Smithfield</td><td>Traditional live session gathering at *The Cobblestone* bar benches.</td><td>Arrive very early to secure group space near the back session room.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Western Coast</td><td>Out-of-city escape: Cliffs of Moher edge walk & Galway Bay run.</td><td>Secure long-distance group coach links or vehicle rentals early.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Trinity District</td><td>Stroll the historic grass quadrangles of Trinity College campus grounds.</td><td>Long Room entry requires advanced digital booking blocks.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Liberties</td><td>Self-guided industrial history architecture run at Guinness Storehouse.</td><td>The top-floor Gravity Bar offers a full 360° city horizon view.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>Stoneybatter</td><td>Group neighborhood exploration and craft ale tap tracking.</td><td>Stoneybatter features some of the best non-tourist local snugs.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>Kilkenny Day</td><td>Regional train day sprint to Kilkenny Castle medieval foundations.</td><td>Irish Rail tickets are substantially cheaper when secured online.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Kilkenny</td><td>Wander the historic slipways and ancient stone brewery ruins.</td><td>The entire core is compact and easily traversed on foot.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>Dublin Core</td><td>Final night celebration feast inside a dedicated vegetarian kitchen space.</td><td>Secure large-group table confirmations 1 week ahead.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>Grafton Lanes</td><td>Final morning slow travel specialty coffee loop before transit line.</td><td>Keep transport bags organized at hotel main desks post-checkout.</td></tr>
-            </tbody>
-        </table>
-
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
-        <table>
-            <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Cliffs of Moher Extreme Atlantic Trail</td><td>National Gallery of Ireland (Pristine Atrium Galleries)</td><td>*Bottleneck:* Temple Bar district prices are aggressively inflated for tourist blocks. *Strategy:* Cross north over the river for authentic pricing.</td></tr>
-                <tr><td>Trinity Quadrangle Architectural Walk</td><td>Chester Beatty Library Vaults (Ancient Manuscripts Collection)</td><td>*Bottleneck:* Western coastal highway networks can experience intense heavy wind closures. *Strategy:* Always verify Atlantic alerts.</td></tr>
-                <tr><td>Kilkenny Castle Garden Discovery</td><td>Stephen’s Green Shopping Centre (Victorian Iron Structure)</td><td>*Bottleneck:* Evening rush hours bottleneck central city bus lines. *Strategy:* Utilize the Luas light rail line track vectors instead.</td></tr>
-            </tbody>
-        </table>
-
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *The Snug System:* Historical pub snugs are private wooden booth enclosures; if you find one open, your group can claim it freely, just keep the service hatch functional.</p>
-                <p>2. *Round Ordering Culture:* If a local offers to buy your group a round of drinks, it is standard etiquette to reciprocate the gesture in subsequent rounds.</p>
-                <p>3. *The "Thank You" Driver Rule:* It is a standard social custom to loudly thank the bus driver when exiting from the middle or rear transit doors.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Buy a physical *Leap Visitor Card* at airport convenience outposts for unlimited access across Dublin Bus, Luas, and DART networks.</p>
-                <p><strong>1. UK Plug Adapter (Type G):</strong> Ireland utilizes the traditional three-prong configuration; ensure your tech chargers map correctly.</p>
-                <p><strong>2. Neoprene Electronic Sleeves:</strong> Essential for shielding group cameras and laptop ecosystems from creeping ambient moisture.</p>
-                <p><strong>3. Heavy-Gauge Knit Scarf:</strong> Essential for protecting your neck against aggressive Atlantic coastal wind shears during outdoor walks.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================
-         WALES CATALOG PORTFOLIO
+         WALES PORTFOLIO
          ============================================ -->
     <div id="wales" class="catalog-section">
         <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1575373021946-b8f2cbda4fdf?auto=format&fit=crop&w=1200&q=80');">
             <div class="hero-tagline">
-                <h2>Wales: The Slate & Citadel Coast</h2>
-                <p>A narrative shaped by sweeping green ridges, medieval keeps, and hidden maritime coves. Cardiff balances beautiful Victorian shopping arcades with a high-energy indie subculture, minutes from raw national parks.</p>
+                <h2>Bristol & Wales: Castles, Street Art & Slates</h2>
+                <p>Banksy hunt runs, cross-border bus hops over river estuaries, and epic medieval castle grounds paired with deep green park tracks.</p>
             </div>
         </div>
 
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ BRS)</h3>
         <div class="grid-2">
             <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ BRS + Cross-Border Rail)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>Ryanair to Bristol (BRS):</strong> €95 round-trip. Fast direct flight link. Under-seat pack strategy required. Match with direct highway coach over the Severn bridge.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>EasyJet Standard Plus:</strong> €185 round-trip. Great mid-day flight timings. Fully includes a large overhead cabin suitcase allocation and priority group boarding lanes.</p>
+                <h4>✈️ Ryanair Route Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €45 – €70 round-trip. Direct to Bristol (BRS). Fastest, most optimized regional launchpad.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €95 – €120 round-trip. Allows smooth baggage transfers through cross-border coach connections.</p>
             </div>
             <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. YHA Cardiff Central:</strong> €70/night. Award-winning clean modern group infrastructure. *Why it fits:* Exceptional group facilities and private en-suite configuration rooms.</p>
-                <p><strong>2. Sleeperz Hotel Cardiff:</strong> €110/night. Sleek glass-and-timber design property. *Why it fits:* Directly adjacent to central train links, making regional wilderness departures incredibly seamless.</p>
-                <p><strong>3. Citrus Hotel Cardiff:</strong> €125/night. Vibrant retro-influenced aesthetics. *Why it fits:* Generous multi-room layouts within easy walking distance of the central castle quarter.</p>
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. YHA Cardiff Central:</strong> €20 – €28/night. Clean group layout properties with modern dynamic styling parameters.</p>
+                <p><strong>2. The Bristol Wing:</strong> €22 – €30/night. Restored historic policing HQ turned into a design hub.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €60 – €84 total per person.</p>
             </div>
         </div>
 
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>🏰 Neighborhood A: The Castle Quarter</h4>
-                <p><strong>The Vibe:</strong> A grand historical core defined by towering medieval fortifications flanked by extensive, glass-roofed 19th-century shopping arcades.</p>
-                <p><strong>Landmarks:</strong> Cardiff Castle Norman Keep & National Museum Cardiff.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Clancy's Vegetarian Diner (Located inside Cardiff Market, serving up spectacular allergy-safe budget snacks and gluten-free wraps).<br>
-                    • *Sit-Down:* Luna's Vegan Corner <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Refined comfort dining space providing exquisite celiac-safe plant configurations).</p>
-                <p><strong>Hidden Gem:</strong> *Troutmark Books* — A fantastic three-story second-hand book maze hidden inside the historic layout of Castle Arcade lanes.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>⚓ Neighborhood B: Cardiff Bay Waterfront</h4>
-                <p><strong>The Vibe:</strong> A sweeping modern maritime boardwalk featuring striking slate-and-bronze architecture and active freshwater harbor paths.</p>
-                <p><strong>Landmarks:</strong> Wales Millennium Centre & Pierhead Building.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* The Hub Cardiff Bay (Waterfront layout offering adaptable veggie burger selections and clear allergen alternatives).<br>
-                    • *Sit-Down:* Mattancherry Cardiff East <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Acclaimed regional Indian kitchen providing celiac-vetted food options).</p>
-                <p><strong>Hidden Gem:</strong> *The Norwegian Church Arts Centre* — A historic landmark waterfront timber church now operating as an independent gallery space.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
         <table>
             <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Morning</td><td>Castle Quarter</td><td>Land BRS, catch the cross-border express bus coach straight to Cardiff.</td><td>Pre-book National Express coach passes online before landing.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>Castle Quarter</td><td>Explore the extensive network of Victorian glass-roofed shopping arcades.</td><td>The arcade alleys are fully weather-protected and pedestrian-only.</td></tr>
-                <tr><td>1</td><td>Evening</td><td>Womanby St</td><td>Diving into the local independent live music and alternative bar lines.</td><td>Womanby Street is the absolute epicenter of Cardiff's indie subculture.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Brecon Beacons</td><td>Out-of-city escape: Pen y Fan ridge mountain hike & valley walks.</td><td>Take the T4 TrawsCymru bus line directly to the mountain trailhead.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Castle Quarter</td><td>Discover the layers of Roman and Norman history inside Cardiff Castle.</td><td>The ticket includes access to the expansive wartime bomb shelter tunnels.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Cardiff Bay</td><td>Take the low-key scenic river taxi link down to the maritime harbor.</td><td>Boats depart regularly from the beautiful parklands of Bute Park docks.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>Cardiff Bay</td><td>Catch an evening independent theater showcase or architectural gallery walk.</td><td>Check the seasonal schedules for the iconic Wales Millennium Centre.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>St Fagans</td><td>Open-air history walk through the expansive grounds of St Fagans Museum.</td><td>Entry is completely free; bus 32 runs directly from the city center core.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Gower Coast</td><td>Regional rail day trip loop to the dramatic sea cliffs of Mumbles head.</td><td>Take the quick train line to Swansea, then hop the local coastal bus link.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>Castle Quarter</td><td>Final group dinner celebration inside a historic center kitchen.</td><td>Book large group tables well in advance for weekend timelines.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>Bute Park</td><td>Slow morning parkland stroll along the riverbanks before return transit.</td><td>Check out early; keep luggage safely checked at your main desk.</td></tr>
+                <tr><td>1</td><td>Morning</td><td>Bristol Core: Self-guided Banksy street art mapping.</td><td>€0 - Open-air street design profiling.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>Clifton Bridge: Massive suspension bridge gorge walk.</td><td>€0 - Free pedestrian access track.</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Cross-Border Coach: Direct hop over the Severn into Wales.</td><td>€6 National Express advance ticket link.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Bute Park & Cardiff Castle Perimeter: Giant medieval loops.</td><td>€0 - Free park and public outer walls.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Cardiff Arcades: Exploring covered Victorian alleyways.</td><td>€0 - Fully weather-proof window tracks.</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>Clancy's Market Diner <span class="tag-v">Veg</span> <span class="tag-gf">GF</span>: Budget allergy meals.</td><td>€8 - Exceptional market food rates.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Womanby Street: Live alternative rock & indie crawls.</td><td>€4 - High energy social blocks.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
         <table>
             <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
             </thead>
             <tbody>
-                <tr><td>Pen y Fan Open Mountain Ridge Hike</td><td>National Museum Cardiff (Evolution of Wales Interior Galleries)</td><td>*Bottleneck:* Cross-border traffic on the Severn Bridge can spike during morning commute hours. *Strategy:* Travel during off-peak times.</td></tr>
-                <tr><td>Bute Park River Cruise Exploration</td><td>Cardiff Market Heritage Glass Pavilion (Covered Arcade Paths)</td><td>*Bottleneck:* St Fagans covers a massive open geographic footprint. *Strategy:* Bring reliable waterproof shells even for casual days.</td></tr>
-                <tr><td>Gower Coastline Cliff Edge Walk</td><td>Techniquest Science Interactive Digital Innovation Labs</td><td>*Bottleneck:* Evening train frequencies back from regional coastlines can thin out post-20:00. *Strategy:* Pre-lock your return transit schedules.</td></tr>
+                <tr><td>Clifton Gorge Cliff Walk</td><td>National Museum Cardiff (Evolution of Wales Art Vaults)</td><td>€0 - Completely free entry.</td></tr>
+                <tr><td>Bute Park Parkland Trails</td><td>Cardiff Covered Central Market Food Loops</td><td>€0 - Free historic iron shelter cover.</td></tr>
             </tbody>
         </table>
-
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *Bilingual Respect:* Public signage is strictly posted in both Welsh and English; showing respect for the preservation of the local language is highly appreciated.</p>
-                <p>2. *The Bar Order Custom:* In busy independent music pubs, order clearly at the main counter line and take your drinks back to your table manually.</p>
-                <p>3. *The "Alright" Greeting:* Locals often use the phrase "Alright?" as a simple, casual greeting; a friendly nod back is the perfect response.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Download the *Transport for Wales App* on your phone for easy digital ticketing across all regional rail networks.</p>
-                <p><strong>1. Sturdy All-Weather Footwear:</strong> Essential for safety when managing muddy forest tracks or slippery historic castle stone steps.</p>
-                <p><strong>2. Compact Travel Umbrella:</strong> Rain patterns can shift rapidly across the coastal bay; keep a small, wind-resistant umbrella tucked in your daypack.</p>
-                <p><strong>3. Multi-Pocket Daypack:</strong> Ideal for organizing extra layers, water bottles, and electronics securely during active group outings.</p>
-            </div>
-        </div>
     </div>
 
     <!-- ============================================
-         GERMANY CATALOG PORTFOLIO
+         NEW! IRELAND PORTFOLIO
          ============================================ -->
-    <div id="germany" class="catalog-section">
-        <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80');">
+    <div id="ireland" class="catalog-section">
+        <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&w=1200&q=80');">
             <div class="hero-tagline">
-                <h2>The Black Forest: Fairytale & Thermal Alpine</h2>
-                <p>A journey into Europe's deep folkloric heartland. Freiburg presents a sun-drenched, eco-conscious haven of historic water canals that shifts into ancient pine canopies and world-class thermal mineral pools.</p>
+                <h2>Ireland: The Celtic Compile Run</h2>
+                <p>Wild coastal cliff loops, sweeping peninsula trails, free entry national galleries, and high-energy trad music sessions in historic brick quarters.</p>
             </div>
         </div>
 
-        <h3>### 1. FLIGHT & ACCOMMODATION BLUEPRINT</h3>
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ DUB)</h3>
         <div class="grid-2">
             <div class="luxury-card">
-                <h4>✈️ Google Flights Matrix (MAD ⇄ BSL EuroAirport)</h4>
-                <div class="flight-badge badge-cheapest">Cheapest Option</div>
-                <p><strong>EasyJet Basic:</strong> €105 round-trip. Direct non-stop flight to EuroAirport Basel-Mulhouse-Freiburg. Personal under-seat bag configuration parameters apply.</p>
-                <div class="flight-badge badge-best">Best Option</div>
-                <p><strong>Lufthansa Classic (via FRA):</strong> €210 round-trip. Full overhead 10kg carry-on allowance included. Premium flight safety parameters and flexible itinerary booking protection lines.</p>
+                <h4>✈️ Ryanair Route Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €40 – €65 round-trip. Fast direct link to Dublin Airport (DUB). Ideal for single-pack optimization layout.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €85 – €120 round-trip. Overhead rolling container or checked option for multi-climate hiking shells.</p>
             </div>
             <div class="luxury-card">
-                <h4>🏨 Google Hotels Curated Inventory</h4>
-                <p><strong>1. Black Forest Hostel (Freiburg):</strong> €70/night. Laid-back rustic eco-conscious architecture. *Why it fits:* Fantastic common kitchens and budget group integration points near the forest edge.</p>
-                <p><strong>2. StayInFreiburg Apartments:</strong> €120/night. Modern, clean Scandinavian style lofts. *Why it fits:* Provides spacious self-catering facilities ideal for managing customized group breakfast prep.</p>
-                <p><strong>3. Motel One Freiburg:</strong> €135/night. High-end contemporary design hotel right in the core. *Why it fits:* Exceptional custom lounge architecture right beside the historic cathedral perimeter.</p>
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. Jacobs Inn Hostel (Dublin):</strong> €24 – €32/night. Pod-style beds for maximum privacy controls. Close to central rail hubs.</p>
+                <p><strong>2. Generator Hostel Smithfield:</strong> €26 – €35/night. Modern industrial design matrix next to urban cultural zones.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €72 – €99 total per person.</p>
             </div>
         </div>
 
-        <h3>### 2. NEIGHBORHOOD-BY-NEIGHBORHOOD CATALOG</h3>
-        <div class="grid-2">
-            <div class="luxury-card">
-                <h4>⛪ Neighborhood A: Freiburg Altstadt & Cathedral Quarter</h4>
-                <p><strong>The Vibe:</strong> A sun-drenched, medieval eco-paradise laced with crystal-clear water canals running past cobblestone plazas and timber facades.</p>
-                <p><strong>Landmarks:</strong> Freiburg Minster Gothic Tower & Historic Bächle Water Channels.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Huber Café (Modern, independent coffee house providing an abundance of celiac-safe artisan gluten-free and vegan treats).<br>
-                    • *Sit-Down:* Das Kartoffelhaus <span class="tag-v">Veg</span> <span class="tag-gf">GF</span> (Specialized traditional German potato kitchen hosting explicit celiac-safe menus and rustic iron-skillet options).</p>
-                <p><strong>Hidden Gem:</strong> *Markthalle* — A vibrant interior culinary market lane where local hidden counters serve up global spices away from tourist blocks.</p>
-            </div>
-            <div class="luxury-card">
-                <h4>🌲 Neighborhood B: Herdern & Schlossberg Slopes</h4>
-                <p><strong>The Vibe:</strong> Elegant, leafy residential streets that turn into vertical vineyard terraces and dense pine-clad mountain trail networks.</p>
-                <p><strong>Landmarks:</strong> Schlossberg Funicular Lift & Kanonenplatz Scenic Overlook.</p>
-                <p><strong>Dining Spots:</strong> <br>
-                    • *Casual:* Greiffenegg Schlössle Biergarten (Perched mountain view terrace serving up regional crisp beers and simple vegetable snacks).<br>
-                    • *Sit-Down:* Essential Kitchen (Contemporary organic restaurant focusing entirely on clean, allergen-labeled regional farm source alignments).</p>
-                <p><strong>Hidden Gem:</strong> *Alte Wache* — A beautiful historic stone guardhouse now acting as an upscale boutique tasting outpost for local regional wines.</p>
-            </div>
-        </div>
-
-        <h3>### 3. DAY-BY-DAY GEOGRAPHIC ITINERARY</h3>
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
         <table>
             <thead>
-                <tr><th>Day</th><th>Time Block</th><th>Neighborhood</th><th>Activity / Stop</th><th>Logistical Note</th></tr>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Morning</td><td>Altstadt Core</td><td>Land BSL, take the direct highway airport shuttle bus link straight to Freiburg.</td><td>Buy your FlixBus or EuroAirport bus shuttle pass ahead online.</td></tr>
-                <tr><td>1</td><td>Afternoon</td><td>Altstadt Core</td><td>Explore the beautiful historic cobblestone lanes and step over the Bächle streams.</td><td>Watch your step; local lore says stepping inside a channel means marrying a Freiburger!</td></tr>
-                <tr><td>1</td><td>Evening</td><td>Schlossberg</td><td>Scale the funicular mountain elevator track for sunset beer garden views.</td><td>The walking trail back down is well-lit and easy for groups post-sunset.</td></tr>
-                <tr><td>2</td><td>Full Day</td><td>Wutach Gorge</td><td>Out-of-city escape: Wilderness gorge canyon trek across wooden bridges.</td><td>Utilize the regional Deutsche Bahn train lines from Freiburg Main Central Station.</td></tr>
-                <tr><td>3</td><td>Morning</td><td>Altstadt Core</td><td>Climb the intricate open stone lacework tower of the historic gothic Minster.</td><td>The tower staircase ascent requires a modest cash entrance ticket fee.</td></tr>
-                <tr><td>3</td><td>Afternoon</td><td>Titisee Forest</td><td>Day pass relaxation track inside Badeparadies Schwarzwald thermal oasis pools.</td><td>Secure your indoor pool palm oasis time slot online 1 week prior.</td></tr>
-                <tr><td>3</td><td>Evening</td><td>Altstadt Core</td><td>Group gathering for cozy German wine and local harvest vegetable plates.</td><td>Traditional dining spaces fill early; lock in large group placements.</td></tr>
-                <tr><td>4</td><td>Morning</td><td>Todtnau Track</td><td>Adrenaline alpine sled coaster gravity run descending the mountain slopes.</td><td>The mountain chairlift ride up is included directly in the ticket bundle.</td></tr>
-                <tr><td>4</td><td>Afternoon</td><td>Triberg Woods</td><td>Hike adjacent to Germany's highest cascading waterfalls and pine loops.</td><td>Keep an eye out for the friendly local black forest red squirrels along the trail paths.</td></tr>
-                <tr><td>4</td><td>Evening</td><td>Altstadt Core</td><td>Final group microbrew tour and celebration toast inside old stone cellars.</td><td>Freiburg's student bar blocks stay highly active well past midnight.</td></tr>
-                <tr><td>5</td><td>Morning</td><td>Cathedral Plaza</td><td>Slow travel morning strolling through open-air farmer marketplace circles.</td><td>The market tracks are famous for fresh fruit preserves and regional treats.</td></tr>
+                <tr><td>1</td><td>Morning</td><td>Dublin Center: Georgian square walking and custom trail routes.</td><td>€0 - Architectural asset mapping.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>National Gallery of Ireland: High-ceiling historic art vaults.</td><td>€0 - Free permanent collection entry.</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Temple Bar Fringe: Free open-door live acoustic trad circles.</td><td>Avoid pricey drinks; stay for the music.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Howth Head Peninsula: Coastal cliff looping & sea-wall sprint.</td><td>€5 return via cheap DART coastal train.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Phoenix Park: Exploring massive enclosed park trails and deer runs.</td><td>€0 - Ideal outdoor core stability playground.</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>Cornucopia Wholefoods <span class="tag-v">Veg</span> <span class="tag-gf">GF</span>: Hearty plant-based stews.</td><td>€13 - High-volume budget allergy fuel.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Smithfield Plaza: Relaxed local community hubs and pub crawls.</td><td>€5 - Local cider or craft beverage caps.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 4. THE "PLAN B" WEATHER & LOGISTICS MATRIX</h3>
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
         <table>
             <thead>
-                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping (Within 15-Min Transit)</th><th>Logistical Bottleneck & Strategy</th></tr>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
             </thead>
             <tbody>
-                <tr><td>Wutachschlucht Wild Mountain Gorge Trek</td><td>Badeparadies Schwarzwald (Massive Indoor Thermal Palm Paradise)</td><td>*Bottleneck:* EuroAirport Basel features distinct French and Swiss exit gates. *Strategy:* Exit strictly to the French side for the Freiburg shuttle link.</td></tr>
-                <tr><td>Todtnau Mountain Alpine Gravity Coaster</td><td>Freiburg Augustinermuseum (Stunning Modern Monastic Art Vault)</td><td>*Bottleneck:* The open cathedral marketplace counters close sharply at 13:00. *Strategy:* Complete your food exploration tracks before noon.</td></tr>
-                <tr><td>Triberg Waterfall Forest Trail Paths</td><td>Schwabentor Historic Gate Interior Medieval Archive Galleries</td><td>*Bottleneck:* Regional weekend mountain buses can experience limited off-season lines. *Strategy:* Secure train schedules early.</td></tr>
+                <tr><td>Howth Head Coastal Cliff Loop</td><td>National Museum of Archaeology (Irish Gold & Bog Bodies)</td><td>€0 - Stunning free historical bunker.</td></tr>
+                <tr><td>Phoenix Park Woodland Runs</td><td>The Saucy Cow Veggie Hub & Covered Arcades</td><td>€10 - Warm plant-based comfort stop.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================
+         NEW! THE BLACK FOREST PORTFOLIO
+         ============================================ -->
+    <div id="blackforest" class="catalog-section">
+        <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80');">
+            <div class="hero-tagline">
+                <h2>The Black Forest: Schwarzwald Stack & Trace</h2>
+                <p>Dense dark-pine trail networks, mountain-gorge loops, and fairy-tale cobblestone town squares resting safely under the budget line.</p>
+            </div>
+        </div>
+
+        <h3 class="section-header">### 1. RE-SEARCHED LUGGAGE & FLIGHT MATRIX (MAD ⇄ BSL)</h3>
+        <div class="grid-2">
+            <div class="luxury-card">
+                <h4>✈️ EasyJet / Ryanair Gateway Calibration</h4>
+                <div class="flight-badge badge-backpack">🎒 Backpack Only</div>
+                <p><strong>Base Fare:</strong> €35 – €65 round-trip. Flight maps into Basel-Mulhouse-Freiburg Airport (BSL) for immediate Black Forest access.</p>
+                
+                <div class="flight-badge badge-checked">🧳 Checked/Priority Option</div>
+                <p><strong>Add-on Tier:</strong> €80 – €115 round-trip. Highly useful if carrying extensive trail running gear or heavy cold-weather layers.</p>
+            </div>
+            <div class="luxury-card">
+                <h4>🏨 Cheap Booking Accommodations (3 Nights)</h4>
+                <p><strong>1. StayIn Freiburg Hostel:</strong> €22 – €28/night. Clean lines, optimized shared spaces, and rapid mountain access.</p>
+                <p><strong>2. Black F Capsule Rooms (Freiburg):</strong> €25 – €34/night. Automated tech layouts minimizing service fees.</p>
+                <p class="text-green font-bold">Estimated Lodging Subtotal: €66 – €90 total per person.</p>
+            </div>
+        </div>
+
+        <h3 class="section-header">### 2. THE HIGH-FUN / LOW-COST DAY PLAN</h3>
+        <table>
+            <thead>
+                <tr><th>Day</th><th>Time Block</th><th>Location & Cheap Track</th><th>Logistical Cost Save</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Morning</td><td>Freiburg Altstadt: Bächle canal systems and Gothic spires.</td><td>€0 - Free open-air layout.</td></tr>
+                <tr><td>1</td><td>Afternoon</td><td>Schlossberg Hill: High-intensity forest trail loop above the city.</td><td>€0 - Foot access directly from town core.</td></tr>
+                <tr><td>1</td><td>Evening</td><td>Freiburg Munster Square: Local farm snacks and fresh pretzels.</td><td>€4 - Highly efficient market fuel.</td></tr>
+                <tr><td>2</td><td>Full Day</td><td>Höllental (Hell's Valley) & Ravenna Gorge: Deep pine treks.</td><td>Free regional transit with local hostel KONUS card.</td></tr>
+                <tr><td>3</td><td>Morning</td><td>Titisee Lake Loop: Panoramic glacial lake path training run.</td><td>€0 using local transit integrations.</td></tr>
+                <tr><td>3</td><td>Afternoon</td><td>Adelhaus Bio-Café <span class="tag-v">Veg</span> <span class="tag-gf">GF</span>: organic payload salads & hot soups.</td><td>€11 - Clean weightless nutrition profile.</td></tr>
+                <tr><td>3</td><td>Evening</td><td>Freiburg Student Quarter: Laidback, low-cost open-air beer gardens.</td><td>€4 - Inexpensive local regional wheat beers.</td></tr>
             </tbody>
         </table>
 
-        <h3>### 5. LOCAL CULTURE & PACKING CHEAT SHEET</h3>
-        <div class="grid-2">
+        <h3 class="section-header">### 3. THE PLAN B WEATHER MATRIX</h3>
+        <table>
+            <thead>
+                <tr><th>Outdoor Activity Baseline</th><th>Indoor Alternative Mapping</th><th>Cost Impact</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Ravenna Gorge Alpine Ridge Trek</td><td>Freiburg Augustinermuseum (Sculpture Halls & Vaults)</td><td>€5 entry - Weatherproof cultural tracking.</td></tr>
+                <tr><td>Lake Titisee Perimeter Running Track</td><td>Kartoffelhaus Freiburg <span class="tag-gf">GF Options</span>: Heated potato gratin loops</td><td>€12 - Hearty, carb-heavy warmth.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================
+         MASTER BUDGET BLUEPRINT PAGE
+         ============================================ -->
+    <div id="master-budget" class="catalog-section">
+        <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80');">
+            <div class="hero-tagline">
+                <h2>The Hard-Capped €550 Master Matrix</h2>
+                <p>A calculated spending overview structured exclusively for budget efficiency, optimization safeguards, and zero financial friction.</p>
+            </div>
+        </div>
+
+        <h3 class="section-header">Budget Architecture Matrix (All projections in EUR per person)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Destination Option</th>
+                    <th>Flights (Backpack Base)</th>
+                    <th>3-Night Cheap Lodging</th>
+                    <th>Local Transit / Bus</th>
+                    <th>Fun, Street Food & Veg Dining</th>
+                    <th class="text-right">Total Base Booking</th>
+                    <th class="text-right text-green">Safety Cushion Under €550 Cap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="font-bold">🇵🇹 Porto & Coast</td>
+                    <td>€45</td>
+                    <td>€55</td>
+                    <td>€15</td>
+                    <td>€120</td>
+                    <td class="text-right font-bold">€235</td>
+                    <td class="text-right font-bold text-green">+ €315 Left Over</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">🇪🇸 Tenerife North</td>
+                    <td>€70</td>
+                    <td>€78</td>
+                    <td>€25</td>
+                    <td>€110</td>
+                    <td class="text-right font-bold">€283</td>
+                    <td class="text-right font-bold text-green">+ €267 Left Over</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">🏴%E2%80%8D󠁳󠁣󠁴󠁿 Edinburgh Gothic</td>
+                    <td>€90</td>
+                    <td>€66</td>
+                    <td>€12</td>
+                    <td>€140</td>
+                    <td class="text-right font-bold">€308</td>
+                    <td class="text-right font-bold text-green">+ €242 Left Over</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">🏴%E2%80%8D󠁳󠁷󠁬󠁳󠁿 Bristol & Wales Gateway</td>
+                    <td>€55</td>
+                    <td>€72</td>
+                    <td>€22</td>
+                    <td>€130</td>
+                    <td class="text-right font-bold">€279</td>
+                    <td class="text-right font-bold text-green">+ €271 Left Over</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">🇮🇪 Ireland (Celtic Loop)</td>
+                    <td>€50</td>
+                    <td>€85</td>
+                    <td>€15</td>
+                    <td>€150</td>
+                    <td class="text-right font-bold">€300</td>
+                    <td class="text-right font-bold text-green">+ €250 Left Over</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">🇩🇪 The Black Forest</td>
+                    <td>€48</td>
+                    <td>€78</td>
+                    <td>€10</td>
+                    <td>€120</td>
+                    <td class="text-right font-bold">€256</td>
+                    <td class="text-right font-bold text-green">+ €294 Left Over</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="grid-2" style="margin-top: 40px;">
             <div class="luxury-card">
-                <h4>📜 Tipping & Etiquette Protocols</h4>
-                <p>1. *Bächle Preservation:* Never discard any packaging or step intentionally with dirty muddy hiking gear inside the clean flowing city water channels.</p>
-                <p>2. *The Cash Custom:* While major design properties accept card frameworks, small local mountain huts and rural forest taverns strictly require physical Euro cash bills.</p>
-                <p>3. *The Water Bill Fact:* Tap water is not brought automatically to restaurant tables; ordering bottled mineral water or explicitly asking for paid table drinks is standard custom.</p>
+                <h4>🎯 Ultimate Cost Controls</h4>
+                <p>• <strong>Free Family Dinners:</strong> Selecting hostels like *Onefam Porto* knocks out nearly 40% of standard food spending via community night meal setups.</p>
+                <p>• <strong>The KONUS Transit Card:</strong> Staying in Freiburg / Black Forest guest houses automatically grants you the KONUS card, unlocking free regional train and bus links across the entire forest landscape.</p>
+                <p>• <strong>The Layering Hack:</strong> Fly backpack-only on Ryanair or EasyJet by wearing your thickest combat/hiking boots and heaviest outerwear directly onto the plane infrastructure.</p>
             </div>
             <div class="luxury-card">
-                <h4>🎒 Transit & Micro-Packing Essentials</h4>
-                <p><strong>Transit Strategy:</strong> Utilize the *VAG Mobil App* or claim your complimentary *KONUS Guest Card* from your hotel check-in desk for free regional transit lines.</p>
-                <p><strong>1. Coin Pouch with Euro Coins:</strong> Essential for accessing automated trail luggage lockers and public sanitation facilities smoothly.</p>
-                <p><strong>2. Compact Fast-Dry Microfiber Towel:</strong> Indispensable for spontaneous thermal bath excursions or drying off after sudden mountain rain showers.</p>
-                <p><strong>3. Insulated Water Bottle Flask:</strong> Ideal for keeping your herbal teas warm during crisp, high-altitude morning group forest treks.</p>
+                <h4>💡 Fun Factor Maximization</h4>
+                <p>• <strong>Zero Cover, Max Impact:</strong> All six options focus on heavy nature trails, volcanic pools, extinct volcanoes, coastal cliff loops, and street art hunting—guaranteeing high memory output with zero ticket costs.</p>
             </div>
         </div>
     </div>
@@ -836,7 +718,7 @@
 </div>
 
 <script>
-    function switchDest(destId) {
+    function switchDest(btn, destId) {
         // Hide all sections
         const sections = document.querySelectorAll('.catalog-section');
         sections.forEach(sec => sec.classList.remove('active'));
@@ -849,7 +731,7 @@
         document.getElementById(destId).classList.add('active');
         
         // Add active class to clicked tab
-        event.target.classList.add('active');
+        btn.classList.add('active');
         
         // Smooth scroll to top of content area
         window.scrollTo({
